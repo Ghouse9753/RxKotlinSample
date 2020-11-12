@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">RxKotlinSample</string>
+    <string name="create">Create</string>
+    <string name="just">Just</string>
+    <string name="fromarray">From Array</string>
+    <string name="fromiterable">From Iterable</string>
+    <string name="interval">Interval</string>
+    <string name="range">Range</string>
+    <string name="flowable">Flowable</string>
+    <string name="maybe">MayBe</string>
+    <string name="flatmap">FlatMap</string>
+    <string name="concat">Concat</string>
+    <string name="repeat">Repeat</string>
+    <string name="input">Input</string>
+    <string name="output">Output</string>
+    <string name="completed">Completed</string>
+    <string name="timer">Timer</string>
+</resources>
