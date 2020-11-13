@@ -49,7 +49,7 @@ class FilterOperatorsActivity : AppCompatActivity() {
     private fun onHandleDistinct() {
         tvOutput.text = ""
         val list = listOf(1, 2, 2, 5, 5, 6, 7, 7, 9, 9)
-        tvOperationType.text = getString(R.string.filter)
+        tvOperationType.text = getString(R.string.distinct)
         tvInput.text = list.toString()
         val disposable = Observable.fromIterable(list)
             .distinct()
