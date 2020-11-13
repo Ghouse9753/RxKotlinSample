@@ -160,8 +160,6 @@ class RxActivity : AppCompatActivity() {
         tvOperationType.text = getString(R.string.fromarray)
         tvInput.text = array.joinToString()
         Observable.fromArray(*array)
-            .filter { item -> item.toString().endsWith("n") }
-            .subscribeOn(Schedulers.newThread())
             .subscribe({ value -> tvOutput.text = value },
                 { e -> tvOutput.text = "From Array: error ${e.message}" },
                 { tvOutput.text = "From Array complete" })
