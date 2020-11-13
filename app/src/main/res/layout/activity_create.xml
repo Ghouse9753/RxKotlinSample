@@ -68,23 +68,28 @@
                 android:text="@string/fromiterable" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnFromCallable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/from_callable" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnFromFuture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/from_future" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnFromPublisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/from_publisher" />
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnFlowable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/flowable" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/flatMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/flatmap" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/concat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/concat" />
-
         </LinearLayout>
     </HorizontalScrollView>
 

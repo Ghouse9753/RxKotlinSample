@@ -2,22 +2,26 @@ package com.example.rxkotlinsample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_rx.*
+import kotlinx.android.synthetic.main.activity_create.*
+import org.reactivestreams.Publisher
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class RxActivity : AppCompatActivity() {
+class CreateActivity : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rx)
+        setTitle(R.string.create_operators)
+        setContentView(R.layout.activity_create)
         setupClickListeners()
     }
 
@@ -46,6 +50,15 @@ class RxActivity : AppCompatActivity() {
         }
         btnFromIterable.setOnClickListener {
             onHandleFromIterable()
+        }
+        btnFromCallable.setOnClickListener {
+            onHandleFromCallable()
+        }
+        btnFromFuture.setOnClickListener {
+            onHandleFromFuture()
+        }
+        btnFromPublisher.setOnClickListener {
+            onHandleFromPublisher()
         }
         btnFlowable.setOnClickListener {
             onHandleFlowable()
@@ -180,17 +193,54 @@ class RxActivity : AppCompatActivity() {
 
     //From Callable
     private fun onHandleFromCallable() {
-
+        tvOperationType.text = getString(R.string.from_callable)
+        val input = "Apple"
+        tvInput.text = input
+        Observable.fromCallable<String> {
+            // do something and return
+            return@fromCallable input
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { item ->
+                tvOutput.text = "From Callable : $item"
+            }
     }
 
     //From Future
     private fun onHandleFromFuture() {
+        tvOperationType.text = getString(R.string.from_future)
+        val input = "Mango"
+        tvInput.text = input
+        val executor = Executors.newSingleThreadExecutor()
+        val future = executor.submit({ println("From Future: $input") }, input)
+        Observable.fromFuture(future)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                tvOutput.text = "From Future : $it"
+            }
 
     }
 
     //From Publisher
     private fun onHandleFromPublisher() {
-
+        tvOperationType.text = getString(R.string.from_publisher)
+        val input = "Orange"
+        tvInput.text = input
+        Observable.fromPublisher(Publisher<String> { emitter ->
+            try {
+                emitter.onNext(input)
+                emitter.onComplete()
+            } catch (t: Throwable) {
+                emitter.onError(t)
+            }
+        })
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                tvOutput.text = "From Publisher : $it"
+            }
     }
 
     //Flowable
